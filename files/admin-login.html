@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Sign In — ScholarSetu</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Persistent background layer. Sits behind everything, fixed so it
+       doesn't move while the page scrolls. Swap the background-image URL
+       in styles.css once the background artwork file is ready. -->
+  <div class="bg-layer" aria-hidden="true"></div>
+
+  <div class="page">
+
+    <header class="top-bar">
+      <a href="#" class="back-link">
+        <span class="back-arrow" aria-hidden="true">&#8592;</span>
+        Back to home
+      </a>
+      <div class="brand-mark" aria-hidden="true">S</div>
+    </header>
+
+    <main class="login-shell">
+
+      <!-- Illustration panel: drops off the layout entirely on phones -->
+      <section class="illustration-panel" aria-hidden="true">
+        <div class="illustration-frame">
+          <!-- TODO: drop the admin/teacher vector PNG in as the src -->
+          <img class="illustration" src="" alt="" />
+        </div>
+      </section>
+
+      <!-- Form panel -->
+      <section class="form-panel">
+        <div class="form-card">
+
+          <p class="wordmark">Scholarship Portal</p>
+          <h1 class="heading">Admin sign in</h1>
+          <p class="subheading">Enter your details to manage scholarships and review student profiles.</p>
+
+          <form id="admin-login-form" novalidate>
+
+            <div class="field">
+              <label for="full-name">Full name</label>
+              <input type="text" id="full-name" name="fullName" autocomplete="name" required />
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" autocomplete="email" required />
+            </div>
+
+            <div class="field">
+              <label for="admin-id">Admin ID</label>
+              <input type="text" id="admin-id" name="adminId" autocomplete="username" required />
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" autocomplete="current-password" required />
+            </div>
+
+            <div class="field-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="keep-signed-in" name="keepSignedIn" />
+                Keep me signed in
+              </label>
+              <!-- TODO: forgot-password flow not built yet -->
+              <a href="#" class="inline-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="submit-btn">Sign in</button>
+
+          </form>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

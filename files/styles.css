@@ -1,0 +1,304 @@
+/* ------------------------------------------------------------
+   TOKENS
+   ------------------------------------------------------------ */
+:root {
+  --navy: #17233E;
+  --navy-deep: #0F1830;
+  --gold: #C99A3B;
+  --gold-soft: #E4C685;
+  --parchment: #F6F1E7;
+  --ink: #1C1C1C;
+  --slate: #57657C;
+  --border: rgba(23, 35, 62, 0.14);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-lg: 20px;
+  --radius-md: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  position: relative;
+}
+
+/* ------------------------------------------------------------
+   PERSISTENT BACKGROUND
+   Fixed behind all content, stays put while the page scrolls.
+   TODO: replace background-image below with the real artwork file.
+   Until then the repeating diagonal pattern is a placeholder so the
+   page doesn't look bare.
+   ------------------------------------------------------------ */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--navy-deep);
+  background-image: url("");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(201, 154, 59, 0.07) 0px,
+    rgba(201, 154, 59, 0.07) 1px,
+    transparent 1px,
+    transparent 42px
+  );
+}
+
+/* ------------------------------------------------------------
+   PAGE / LAYOUT
+   ------------------------------------------------------------ */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 32px 48px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold-soft);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.back-link:hover { color: #fff; }
+
+.back-arrow { font-size: 16px; }
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(228, 198, 133, 0.5);
+  color: var(--gold-soft);
+  font-family: var(--font-display);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-shell {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ------------------------------------------------------------
+   ILLUSTRATION PANEL
+   ------------------------------------------------------------ */
+.illustration-panel {
+  flex: 1 1 44%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  border-radius: var(--radius-lg);
+  border: 1px dashed rgba(228, 198, 133, 0.35);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* TODO: once the vector PNG is dropped in, this just displays it —
+   no layout changes needed. */
+.illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ------------------------------------------------------------
+   FORM PANEL
+   ------------------------------------------------------------ */
+.form-panel {
+  flex: 1 1 56%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--parchment);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  margin: 0 0 12px;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.15;
+  margin: 0 0 10px;
+  color: var(--navy);
+}
+
+.subheading {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--slate);
+  margin: 0 0 28px;
+  max-width: 34ch;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 154, 59, 0.18);
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0 26px;
+  font-size: 13px;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--slate);
+}
+
+.checkbox-label input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--gold);
+}
+
+.inline-link {
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+
+.inline-link:hover { color: var(--gold); }
+
+.submit-btn {
+  width: 100%;
+  padding: 13px 16px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background: var(--navy);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.submit-btn:hover { background: #223154; }
+.submit-btn:active { transform: translateY(1px); }
+
+.submit-btn:focus-visible,
+.inline-link:focus-visible,
+.back-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   RESPONSIVE — primary flow must work at ~390px, no horizontal scroll
+   ------------------------------------------------------------ */
+@media (max-width: 860px) {
+  .illustration-panel { display: none; }
+
+  .login-shell { justify-content: center; }
+
+  .form-panel { flex: 1 1 100%; }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 16px 16px 32px;
+  }
+
+  .top-bar { margin-bottom: 18px; }
+
+  .form-card {
+    padding: 28px 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .heading { font-size: 24px; }
+}
