@@ -15,6 +15,14 @@
    (Flask etc.) a one-file change instead of a rewrite.
    ------------------------------------------------------------ */
 
+function updateTopBarBackdrop() {
+   if (!topBar) return;
+   const isScrolled = window.scrollY > 0;
+   topBar.classList.toggle("is-scrolled", isScrolled);
+   topBar.style.setProperty("--top-bar-height", `${topBar.getBoundingClientRect().height}px`);
+}
+window.addEventListener("scroll", updateTopBarBackdrop, { passive: true });
+
 // TODO: implement once the storage schema is locked as a team.
 // function saveAdmin(adminData) { }
 // function getAdmin(adminId) { }
