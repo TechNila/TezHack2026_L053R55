@@ -21,14 +21,6 @@ const RULE_OPERATORS = [
 
 const ADMIN_SESSION_KEY = "scholarsetu_current_admin";
 
-function updateTopBarBackdrop() {
-   if (!topBar) return;
-   const isScrolled = window.scrollY > 0;
-   topBar.classList.toggle("is-scrolled", isScrolled);
-   topBar.style.setProperty("--top-bar-height", `${topBar.getBoundingClientRect().height}px`);
-}
-window.addEventListener("scroll", updateTopBarBackdrop, { passive: true });
-
 const rulesList = document.getElementById("rules-list");
 const documentsList = document.getElementById("documents-list");
 
@@ -134,6 +126,27 @@ populateAdminDetails();
 /* ------------------------------------------------------------
    FORM SUBMIT — still a UI/data-schema stub
    ------------------------------------------------------------ */
+/* ------------------------------------------------------------
+   STICKY HEADER BACKDROP
+   ------------------------------------------------------------ */
+const topBar = document.querySelector(".top-bar");
+
+function updateTopBarBackdrop() {
+  if (!topBar) return;
+
+  const isScrolled = window.scrollY > 0;
+  topBar.classList.toggle("is-scrolled", isScrolled);
+
+  // Keep the opaque section exactly as tall as the real header.
+  topBar.style.setProperty("--top-bar-height", `${topBar.getBoundingClientRect().height}px`);
+}
+
+if (topBar) {
+  updateTopBarBackdrop();
+  window.addEventListener("scroll", updateTopBarBackdrop, { passive: true });
+  window.addEventListener("resize", updateTopBarBackdrop);
+}
+
 const form = document.getElementById("add-scholarship-form");
 
 form.addEventListener("submit", function (event) {
