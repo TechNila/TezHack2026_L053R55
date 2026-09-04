@@ -30,23 +30,23 @@ body {
   font-family: var(--font-body);
   color: var(--ink);
   position: relative;
+  min-height: 100vh;
 }
 
 /* ------------------------------------------------------------
-   PERSISTENT BACKGROUND
-   Fixed behind all content, stays put while the page scrolls.
-   TODO: replace background-image below with the real artwork file.
-   Until then the repeating diagonal pattern is a placeholder so the
-   page doesn't look bare.
+   SCROLLING BACKGROUND
+   The layer is part of the document instead of fixed to the
+   viewport, so it grows with the page and scrolls normally.
    ------------------------------------------------------------ */
 .bg-layer {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: -1;
+  min-height: 100%;
   background-color: var(--navy-deep);
   background-image: url("base_background.png");
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
 }
 
@@ -67,6 +67,8 @@ body {
    PAGE / LAYOUT
    ------------------------------------------------------------ */
 .page {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -74,10 +76,51 @@ body {
 }
 
 .top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+  padding: 10px 0;
+  isolation: isolate;
+}
+
+/*
+   Scroll backdrop:
+   - hidden at the top of the page
+   - activated by JS once scrolling begins
+   - fully opaque through the entire sticky header
+   - fades smoothly to transparent below the header
+   The --top-bar-height value is measured by JS so the fade always
+   begins exactly at the bottom edge of the actual header.
+*/
+.top-bar::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--top-bar-height, 78px) + 96px);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0,
+    rgba(255, 255, 255, 1) var(--top-bar-height, 78px),
+    rgba(255, 255, 255, 0.72) calc(var(--top-bar-height, 78px) + 24px),
+    rgba(255, 255, 255, 0.28) calc(var(--top-bar-height, 78px) + 60px),
+    rgba(255, 255, 255, 0) calc(var(--top-bar-height, 78px) + 96px)
+  );
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.top-bar.is-scrolled::before {
+  opacity: 1;
+  visibility: visible;
 }
 
 .back-link {
@@ -88,23 +131,41 @@ body {
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
+  padding: 8px 16px 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(23, 35, 62, 0.08);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.back-link:hover { color: #fff; }
+.back-link:hover {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
 
 .back-arrow { font-size: 16px; }
 
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid rgba(228, 198, 133, 0.5);
-  color: var(--gold-soft);
-  font-family: var(--font-display);
-  font-size: 16px;
-  display: flex;
+.brand-logo {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 87px;
+  height: 87px;
+  padding: 5px;
+  border: 2px solid rgba(201, 154, 59, 0.75);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 .login-shell {
@@ -139,8 +200,6 @@ body {
   overflow: hidden;
 }
 
-/* TODO: once the vector PNG is dropped in, this just displays it —
-   no layout changes needed. */
 .illustration {
   width: 100%;
   height: 100%;
@@ -270,13 +329,14 @@ body {
 
 .submit-btn:focus-visible,
 .inline-link:focus-visible,
-.back-link:focus-visible {
+.back-link:focus-visible,
+.brand-logo:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
 }
 
 /* ------------------------------------------------------------
-   RESPONSIVE — primary flow must work at ~390px, no horizontal scroll
+   RESPONSIVE
    ------------------------------------------------------------ */
 @media (max-width: 860px) {
   .illustration-panel { display: none; }
@@ -299,4 +359,16 @@ body {
   }
 
   .heading { font-size: 24px; }
+}
+
+@media (max-width: 480px) {
+  .brand-logo {
+    width: 78px;
+    height: 78px;
+  }
+
+  .back-link {
+    padding: 7px 14px 7px 12px;
+    font-size: 13px;
+  }
 }
