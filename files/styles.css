@@ -5,7 +5,7 @@
   --navy: #17233E;
   --navy-deep: #0F1830;
   --gold: #C99A3B;
-  --gold-soft: #E4C685;
+  --gold-soft: #e4c685;
   --parchment: #F6F1E7;
   --ink: #1C1C1C;
   --slate: #57657C;
@@ -109,13 +109,13 @@ body {
   visibility: hidden;
   background: linear-gradient(
     to bottom,
-    rgba(255, 255, 255, 1) 0,
-    rgba(255, 255, 255, 1) var(--top-bar-height, 78px),
-    rgba(255, 255, 255, 0.72) calc(var(--top-bar-height, 78px) + 24px),
-    rgba(255, 255, 255, 0.28) calc(var(--top-bar-height, 78px) + 60px),
-    rgba(255, 255, 255, 0) calc(var(--top-bar-height, 78px) + 96px)
+    rgba(0, 0, 0, 0.8) 0,
+    rgba(0, 0, 0, 0.7) calc(var(--top-bar-height, 78px) - 24px),
+    rgba(0, 0, 0, 0.6) calc(var(--top-bar-height, 78px) + 16px),
+    rgba(0, 0, 0, 0.35) calc(var(--top-bar-height, 78px) + 56px),
+    rgba(0, 0, 0, 0) calc(var(--top-bar-height, 78px) + 96px)
   );
-  transition: opacity 0.18s ease, visibility 0.18s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .top-bar.is-scrolled::before {
@@ -133,16 +133,12 @@ body {
   font-weight: 500;
   padding: 8px 16px 8px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(59, 235, 202, 0.85);
   border: 1px solid rgba(23, 35, 62, 0.08);
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
-.back-link:hover {
-  background: var(--navy);
-  color: #fff;
-  border-color: var(--navy);
-}
+.back-link:hover { color: #fff; }
 
 .back-arrow { font-size: 16px; }
 
@@ -365,10 +361,5 @@ body {
   .brand-logo {
     width: 78px;
     height: 78px;
-  }
-
-  .back-link {
-    padding: 7px 14px 7px 12px;
-    font-size: 13px;
   }
 }
