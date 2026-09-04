@@ -13,32 +13,28 @@
 </head>
 <body>
 
-  <!-- Persistent background layer. Sits behind everything, fixed so it
-       doesn't move while the page scrolls. Swap the background-image URL
-       in styles.css once the background artwork file is ready. -->
   <div class="bg-layer" aria-hidden="true"></div>
 
   <div class="page">
 
     <header class="top-bar">
-      <a href="#" class="back-link">
+      <a href="index.html" class="back-link">
         <span class="back-arrow" aria-hidden="true">&#8592;</span>
         Back to home
       </a>
-      <div class="brand-mark" aria-hidden="true">S</div>
+      <a href="index.html" class="brand-logo" aria-label="ScholarSetu home">
+        <img src="SSLogo.png" alt="ScholarSetu" />
+      </a>
     </header>
 
     <main class="login-shell">
 
-      <!-- Illustration panel: drops off the layout entirely on phones -->
       <section class="illustration-panel" aria-hidden="true">
         <div class="illustration-frame">
-          <!-- TODO: drop the admin/teacher vector PNG in as the src -->
           <img class="illustration" src="admin_vector.webp" alt="" />
         </div>
       </section>
 
-      <!-- Form panel -->
       <section class="form-panel">
         <div class="form-card">
 
@@ -73,7 +69,6 @@
                 <input type="checkbox" id="keep-signed-in" name="keepSignedIn" />
                 Keep me signed in
               </label>
-              <!-- TODO: forgot-password flow not built yet -->
               <a href="#" class="inline-link">Forgot password?</a>
             </div>
 
