@@ -21,6 +21,14 @@ const RULE_OPERATORS = [
 
 const ADMIN_SESSION_KEY = "scholarsetu_current_admin";
 
+function updateTopBarBackdrop() {
+   if (!topBar) return;
+   const isScrolled = window.scrollY > 0;
+   topBar.classList.toggle("is-scrolled", isScrolled);
+   topBar.style.setProperty("--top-bar-height", `${topBar.getBoundingClientRect().height}px`);
+}
+window.addEventListener("scroll", updateTopBarBackdrop, { passive: true });
+
 const rulesList = document.getElementById("rules-list");
 const documentsList = document.getElementById("documents-list");
 
