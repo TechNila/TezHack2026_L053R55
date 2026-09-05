@@ -1,0 +1,478 @@
+/* ------------------------------------------------------------
+   TOKENS
+   ------------------------------------------------------------ */
+:root {
+  --navy: #17233E;
+  --navy-deep: #0F1830;
+  --gold: #FFC93C;
+  --gold-soft: #FFE29A;
+  --parchment: #F6F1E7;
+  --ink: #1C1C1C;
+  --slate: #57657C;
+  --border: rgba(23, 35, 62, 0.14);
+
+  --green: #2F8F5B;
+  --green-bg: #E6F3EC;
+  --amber: #B4790E;
+  --amber-bg: #FBF0DC;
+  --red: #B3392F;
+  --red-bg: #FBEAE8;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-lg: 20px;
+  --radius-md: 12px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ------------------------------------------------------------
+   SCROLLING BACKGROUND — scrolls with the page, not fixed to viewport
+   ------------------------------------------------------------ */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  min-height: 100%;
+  background-color: var(--navy-deep);
+  background-image: url("base_background.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.bg-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 201, 60, 0.07) 0px,
+    rgba(255, 201, 60, 0.07) 1px,
+    transparent 1px,
+    transparent 42px
+  );
+}
+
+/* ------------------------------------------------------------
+   PAGE / LAYOUT
+   ------------------------------------------------------------ */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 32px 48px;
+}
+
+/* ------------------------------------------------------------
+   STICKY HEADER — pinned to top, fades in a light backdrop on scroll
+   ------------------------------------------------------------ */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 10px 0;
+  isolation: isolate;
+}
+
+.top-bar::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--top-bar-height, 78px) + 96px);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0,
+    rgba(255, 255, 255, 1) var(--top-bar-height, 78px),
+    rgba(255, 255, 255, 0.72) calc(var(--top-bar-height, 78px) + 24px),
+    rgba(255, 255, 255, 0.28) calc(var(--top-bar-height, 78px) + 60px),
+    rgba(255, 255, 255, 0) calc(var(--top-bar-height, 78px) + 96px)
+  );
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.top-bar.is-scrolled::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Back to home — capsule backdrop so it stays legible over both the
+   dark background and the white scroll-backdrop */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--navy-deep);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(23, 35, 62, 0.08);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.back-link:hover {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+.back-arrow { font-size: 16px; }
+
+/* ------------------------------------------------------------
+   LOGO
+   .brand-logo       — for dark backgrounds (headers): translucent
+                        circular backdrop behind the gold mark
+   .brand-logo--plain — for light backgrounds: mark rendered in navy,
+                        no backdrop needed
+   ------------------------------------------------------------ */
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-logo svg { color: var(--gold); width: 24px; height: 24px; }
+
+.brand-logo--plain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-logo--plain svg { color: var(--navy); width: 100%; height: 100%; }
+
+.brand-wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+  color: #fff;
+}
+
+.brand-logo--plain + .brand-wordmark,
+.top-bar-left .brand-wordmark.on-light { color: var(--navy); }
+
+/* ------------------------------------------------------------
+   SPLIT LOGIN LAYOUT (illustration + form)
+   ------------------------------------------------------------ */
+.login-shell {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.illustration-panel {
+  flex: 1 1 44%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.illustration-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.form-panel {
+  flex: 1 1 56%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--parchment);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  color: var(--amber);
+  margin: 0 0 12px;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.15;
+  margin: 0 0 10px;
+  color: var(--navy);
+}
+
+.subheading {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--slate);
+  margin: 0 0 28px;
+  max-width: 38ch;
+}
+
+/* ------------------------------------------------------------
+   FORM ELEMENTS (shared everywhere)
+   ------------------------------------------------------------ */
+.field { margin-bottom: 18px; }
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field textarea { resize: vertical; }
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255, 201, 60, 0.25);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0 26px;
+  font-size: 13px;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--slate);
+}
+
+.checkbox-label input {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--gold);
+}
+
+.inline-link {
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.inline-link:hover { color: var(--amber); }
+
+.error-text {
+  font-size: 13px;
+  color: var(--red);
+  margin: -6px 0 14px;
+  display: none;
+}
+
+.error-text.show { display: block; }
+
+.success-text {
+  font-size: 13px;
+  color: var(--green);
+  margin: -6px 0 14px;
+  display: none;
+}
+
+.success-text.show { display: block; }
+
+.submit-btn {
+  width: 100%;
+  padding: 13px 16px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background: var(--navy);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.submit-btn:hover { background: #223154; }
+.submit-btn:active { transform: translateY(1px); }
+
+.submit-btn:focus-visible,
+.inline-link:focus-visible,
+.back-link:focus-visible,
+.brand-logo:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   MODAL / DIALOG (shared: e.g. forgot-password helpline dialog)
+   ------------------------------------------------------------ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(15, 24, 48, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.show { display: flex; }
+
+.modal-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--parchment);
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.modal-card h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--navy);
+  margin: 0 0 10px;
+}
+
+.modal-card p {
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.5;
+  margin: 0 0 6px;
+}
+
+.modal-helpline {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--amber);
+  margin: 14px 0 18px;
+}
+
+.modal-close-btn {
+  width: 100%;
+  padding: 11px 16px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--navy);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.modal-close-btn:hover { border-color: var(--gold); }
+
+/* ------------------------------------------------------------
+   RESPONSIVE — primary flow must work at ~390px, no horizontal scroll
+   ------------------------------------------------------------ */
+@media (max-width: 860px) {
+  .illustration-panel { display: none; }
+  .login-shell { justify-content: center; }
+  .form-panel { flex: 1 1 100%; }
+}
+
+@media (max-width: 480px) {
+  .page { padding: 16px 16px 32px; }
+  .top-bar { margin-bottom: 18px; }
+  .form-card { padding: 28px 20px; border-radius: var(--radius-md); }
+  .heading { font-size: 24px; }
+  .field-grid { grid-template-columns: 1fr; }
+  .brand-logo { width: 38px; height: 38px; }
+  .brand-logo svg { width: 20px; height: 20px; }
+}

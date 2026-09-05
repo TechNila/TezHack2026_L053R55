@@ -1,0 +1,37 @@
+.form-card.wide { max-width: 520px; }
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(23, 35, 62, 0.06);
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 26px;
+}
+
+.tab {
+  flex: 1;
+  padding: 9px 12px;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate);
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--navy);
+  color: #fff;
+}
+
+.auth-form.hidden { display: none; }
+
+.auth-form .heading { font-size: 24px; }
+.auth-form .subheading { margin-bottom: 22px; }
+
+@media (max-width: 480px) {
+  .form-card.wide { max-width: 100%; }
+}
