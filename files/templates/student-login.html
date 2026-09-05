@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Student Sign In — ScholarSetu</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="student-login.css" />
+</head>
+<body>
+
+<div class="bg-layer" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <a href="index.html" class="brand-logo" aria-label="ScholarSetu home">
+        <svg viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 24c4-9 10-14 14-14s10 5 14 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="3" cy="25" r="2.6" fill="currentColor"/>
+          <circle cx="31" cy="25" r="2.6" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="home.html" class="back-link">
+        <span class="back-arrow" aria-hidden="true">&#8592;</span>
+        Back to home
+      </a>
+    </div>
+  </header>
+
+  <main class="login-shell">
+
+    <section class="illustration-panel" aria-hidden="true">
+      <div class="illustration-frame">
+        <img class="illustration" src="admin_vector.webp" alt="" />
+      </div>
+    </section>
+
+    <section class="form-panel">
+      <div class="form-card wide">
+
+        <p class="wordmark">ScholarSetu</p>
+
+        <div class="tabs">
+          <button type="button" class="tab active" data-tab="login">Log in</button>
+          <button type="button" class="tab" data-tab="signup">Create account</button>
+        </div>
+
+        <!-- LOG IN -->
+        <form id="studentLoginForm" class="auth-form" novalidate>
+          <h1 class="heading">Welcome back</h1>
+          <p class="subheading">Log in to see which scholarships you're eligible for.</p>
+
+          <div class="field">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" name="username" autocomplete="username" required />
+          </div>
+
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" autocomplete="current-password" required />
+          </div>
+
+          <div class="field-row">
+            <button type="button" class="inline-link" id="forgotPasswordBtn">Forgot password?</button>
+          </div>
+
+          <p class="error-text" id="loginError"></p>
+
+          <button type="submit" class="submit-btn">Log in</button>
+        </form>
+
+        <!-- SIGN UP -->
+        <form id="studentSignupForm" class="auth-form hidden" novalidate>
+          <h1 class="heading">Create your account</h1>
+          <p class="subheading">Your profile is what we check every scholarship's rules against.</p>
+
+          <div class="field">
+            <label for="su-name">Full name</label>
+            <input type="text" id="su-name" name="name" required />
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="su-username">Username</label>
+              <input type="text" id="su-username" name="username" autocomplete="username" required />
+            </div>
+            <div class="field">
+              <label for="su-password">Password</label>
+              <input type="password" id="su-password" name="password" autocomplete="new-password" required />
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="su-email">Email</label>
+              <input type="email" id="su-email" name="email" required />
+            </div>
+            <div class="field">
+              <label for="su-phone">Phone</label>
+              <input type="tel" id="su-phone" name="phone" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="su-institution">Institution name</label>
+            <input type="text" id="su-institution" name="institution_name" required />
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="su-state">State</label>
+              <input type="text" id="su-state" name="state" placeholder="e.g. Assam" required />
+            </div>
+            <div class="field">
+              <label for="su-age">Age</label>
+              <input type="number" id="su-age" name="age" min="10" max="100" required />
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="su-gpa">GPA (out of 10)</label>
+              <input type="number" id="su-gpa" name="gpa" min="0" max="10" step="0.01" required />
+            </div>
+            <div class="field">
+              <label for="su-income">Annual family income (&#8377;)</label>
+              <input type="number" id="su-income" name="annual_income" min="0" required />
+            </div>
+          </div>
+
+          <div class="field-grid">
+            <div class="field">
+              <label for="su-category">Category</label>
+              <select id="su-category" name="category" required>
+                <option value="">Select category</option>
+                <option value="gen">General (Gen)</option>
+                <option value="gen-ews">General &ndash; EWS</option>
+                <option value="obc">OBC</option>
+                <option value="sc">SC</option>
+                <option value="st">ST</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="su-course">Course level</label>
+              <select id="su-course" name="course" required>
+                <option value="">Select level</option>
+                <option value="school">School</option>
+                <option value="ug">Undergraduate (UG)</option>
+                <option value="pg">Postgraduate (PG)</option>
+                <option value="diploma">Diploma / vocational</option>
+                <option value="phd">Doctoral (PhD)</option>
+              </select>
+            </div>
+          </div>
+
+          <p class="error-text" id="signupError"></p>
+          <p class="success-text" id="signupSuccess"></p>
+
+          <button type="submit" class="submit-btn">Create account</button>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div class="modal-overlay" id="forgotModalOverlay">
+  <div class="modal-card">
+    <h3>Reset your password</h3>
+    <p>Password resets aren't self-service yet. Call the student helpdesk and they'll verify your details and reset it for you.</p>
+    <p class="modal-helpline">1800-572-9081</p>
+    <p>Lines are open Monday to Saturday, 9am to 6pm.</p>
+    <button type="button" class="modal-close-btn" id="forgotModalClose">Close</button>
+  </div>
+</div>
+
+<script src="student-login.js"></script>
+</body>
+</html>

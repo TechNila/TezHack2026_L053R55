@@ -14,89 +14,62 @@
 </head>
 <body>
 
-  <div class="bg-layer" aria-hidden="true"></div>
+<div class="bg-layer" aria-hidden="true"></div>
 
-  <div class="page">
+<header class="top-bar">
+  <div class="top-bar-left">
+    <a href="index.html" class="brand-logo" aria-label="ScholarSetu home">
+      <svg viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3 24c4-9 10-14 14-14s10 5 14 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="3" cy="25" r="2.6" fill="currentColor"/>
+        <circle cx="31" cy="25" r="2.6" fill="currentColor"/>
+      </svg>
+    </a>
+    <a href="index.html" class="back-link">
+      <span class="back-arrow" aria-hidden="true">&#8592;</span>
+      Back to home
+    </a>
+  </div>
 
-    <header class="top-bar">
-      <a href="index.html" class="back-link">
-        <span class="back-arrow" aria-hidden="true">&#8592;</span>
-        Back to home
-      </a>
+  <div class="admin-menu">
+    <button type="button" class="admin-badge" id="admin-menu-button"
+            aria-expanded="false" aria-controls="admin-dropdown">
+      <span id="admin-badge-label">Admin</span>
+      <span class="admin-chevron" aria-hidden="true">&#9662;</span>
+    </button>
 
-      <a href="index.html" class="brand-logo" aria-label="ScholarSetu home">
-        <img src="SSLogo.png" alt="ScholarSetu" />
-      </a>
+    <div class="admin-dropdown" id="admin-dropdown" hidden>
+      <p class="admin-dropdown-title">Signed in as</p>
+      <p class="admin-name" id="admin-name">Admin</p>
+      <button type="button" class="admin-signout" id="admin-signout">Sign out</button>
+    </div>
+  </div>
+</header>
 
-      <div class="admin-menu">
-        <button type="button" class="admin-badge" id="admin-menu-button"
-                aria-expanded="false" aria-controls="admin-dropdown">
-          <span id="admin-badge-label">Admin</span>
-          <span class="admin-chevron" aria-hidden="true">&#9662;</span>
-        </button>
+<div class="page">
+  <main class="form-shell">
+    <div class="dashboard-grid">
 
-        <div class="admin-dropdown" id="admin-dropdown" hidden>
-          <p class="admin-dropdown-title">Signed in as</p>
-          <p class="admin-name" id="admin-name">Admin</p>
-          <p class="admin-detail" id="admin-email">No email available</p>
-          <p class="admin-detail" id="admin-id">No Admin ID available</p>
-          <button type="button" class="admin-signout" id="admin-signout">Sign out</button>
-        </div>
-      </div>
-    </header>
+      <!-- ADD / EDIT SCHOLARSHIP -->
+      <div class="panel form-card-wide">
 
-    <main class="form-shell">
-      <div class="form-card-wide">
+        <p class="wordmark">ScholarSetu</p>
+        <h1 class="heading" id="formHeading">Add a new scholarship</h1>
+        <p class="subheading">Every rule you add here is checked against each student's profile, weighted, and shown to them with a tick or cross.</p>
 
-        <p class="wordmark">Scholarship Portal</p>
-        <h1 class="heading">Add a new scholarship</h1>
-        <p class="subheading">Fill in the details below. Students will see the eligibility rules and reasons you set here, so keep them clear and specific.</p>
-
-        <form id="add-scholarship-form" novalidate>
+        <form id="scholarshipForm" novalidate>
 
           <section class="form-section">
             <h2 class="section-title">Basic details</h2>
 
             <div class="field">
-              <label for="scholarship-name">Scholarship name</label>
-              <input type="text" id="scholarship-name" name="scholarshipName" required />
+              <label for="name">Scholarship name</label>
+              <input type="text" id="name" name="name" required />
             </div>
 
             <div class="field">
-              <label for="provider">Provider / organization</label>
-              <input type="text" id="provider" name="provider" required />
-            </div>
-
-            <div class="field">
-              <label for="description">Short description</label>
-              <textarea id="description" name="description" rows="3" placeholder="One or two lines explaining who this scholarship is for"></textarea>
-            </div>
-
-            <div class="field-grid">
-              <div class="field">
-                <label for="category">Category</label>
-                <select id="category" name="category">
-                  <option value="">Select category</option>
-                  <option value="merit">Merit-based</option>
-                  <option value="need">Need-based</option>
-                  <option value="minority">Minority</option>
-                  <option value="sports">Sports / talent</option>
-                  <option value="disability">Disability</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="education-level">Education level</label>
-                <select id="education-level" name="educationLevel">
-                  <option value="">Select level</option>
-                  <option value="school">School</option>
-                  <option value="ug">Undergraduate</option>
-                  <option value="pg">Postgraduate</option>
-                  <option value="diploma">Diploma / vocational</option>
-                  <option value="phd">Doctoral</option>
-                </select>
-              </div>
+              <label for="institution">Providing institution</label>
+              <input type="text" id="institution" name="institution" required />
             </div>
 
             <div class="field-grid">
@@ -104,64 +77,61 @@
                 <label for="deadline">Application deadline</label>
                 <input type="date" id="deadline" name="deadline" required />
               </div>
-
               <div class="field">
-                <label for="amount">Scholarship amount / benefit</label>
-                <input type="text" id="amount" name="amount" placeholder="e.g. ₹50,000 per year, or Full tuition waiver" />
+                <label for="notice_link">Official notice link</label>
+                <input type="url" id="notice_link" name="notice_link" placeholder="https://" required />
               </div>
+            </div>
+
+            <div class="field">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" rows="3" required></textarea>
             </div>
           </section>
 
           <section class="form-section">
             <h2 class="section-title">Eligibility rules</h2>
-            <p class="section-hint">Every rule here is shown to the student as the exact reason for their result — no hidden scoring.</p>
+            <p class="section-hint">Each rule can only be used once per scholarship. Weight is fixed per field and drives the eligibility calculation — you don't set it.</p>
+
+            <div class="add-rule-row">
+              <select id="ruleFieldPicker">
+                <option value="">Add a rule&hellip;</option>
+              </select>
+              <button type="button" id="addRuleBtn" class="add-row-btn">+ Add</button>
+            </div>
 
             <div id="rules-list" class="dynamic-list"></div>
-
-            <button type="button" id="add-rule-btn" class="add-row-btn">+ Add rule</button>
+            <p class="error-text" id="rulesError"></p>
           </section>
 
           <section class="form-section">
             <h2 class="section-title">Required documents</h2>
-
             <div id="documents-list" class="dynamic-list"></div>
-
             <button type="button" id="add-document-btn" class="add-row-btn">+ Add document</button>
           </section>
 
-          <section class="form-section">
-            <h2 class="section-title">Additional info</h2>
+          <p class="error-text" id="formError"></p>
+          <p class="success-text" id="formSuccess"></p>
 
-            <div class="field">
-              <label for="notice-url">Original notice link</label>
-              <input type="url" id="notice-url" name="noticeUrl" placeholder="https://" required />
-            </div>
-
-            <div class="field-grid">
-              <div class="field">
-                <label for="contact-email">Contact email (optional)</label>
-                <input type="email" id="contact-email" name="contactEmail" />
-              </div>
-
-              <div class="field">
-                <label for="status">Status</label>
-                <select id="status" name="status">
-                  <option value="draft">Draft</option>
-                  <option value="published">Published</option>
-                </select>
-              </div>
-            </div>
-          </section>
-
-          <button type="submit" class="submit-btn">Save scholarship</button>
-
+          <div class="form-actions">
+            <button type="button" class="cancel-edit-btn hidden" id="cancelEditBtn">Cancel edit</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Add scholarship</button>
+          </div>
         </form>
 
       </div>
-    </main>
 
-  </div>
+      <!-- EXISTING SCHOLARSHIPS -->
+      <div class="panel list-panel">
+        <h2 class="section-title">Existing scholarships</h2>
+        <p class="section-hint">Everything currently listed for students.</p>
+        <div id="scholarshipList" class="sch-list"></div>
+      </div>
 
-  <script src="add-scholarship.js"></script>
+    </div>
+  </main>
+</div>
+
+<script src="add-scholarship.js"></script>
 </body>
 </html>
