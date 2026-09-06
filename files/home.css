@@ -363,18 +363,18 @@ img, svg { display: block; max-width: 100%; }
     padding: 12px 0;
   }
   .nav-toggle { display: flex; }
-
-  .site-header.nav-open { background: var(--ink); }
+  
   .site-header.nav-open .main-nav {
+    z-index: -10;
     display: flex;
     position: absolute;
-    top: var(--header-h);
+    top: 0;
     left: 0;
     right: 0;
     flex-direction: column;
     gap: 0;
     background: var(--ink);
-    padding: 8px 32px 20px;
+    padding: var(--header-h) 8px 32px 20px;
   }
   .site-header.nav-open .main-nav a {
     width: 100%;
