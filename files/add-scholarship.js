@@ -15,7 +15,49 @@ const FIELD_DEFS = {
     options: [["gen", "General (Gen)"], ["gen-ews", "General \u2013 EWS"], ["obc", "OBC"], ["sc", "SC"], ["st", "ST"]],
     hint: "Students at or below this tier qualify",
   },
-  state: { label: "Eligible state", weight: 1, inputType: "text", placeholder: "e.g. Assam, or All for national" },
+  state: {
+    label: "Eligible state", weight: 1, inputType: "select",
+    options: [
+      ["all", "All India"],
+      ["andhra-pradesh", "Andhra Pradesh"],
+      ["arunachal-pradesh", "Arunachal Pradesh"],
+      ["assam", "Assam"],
+      ["bihar", "Bihar"],
+      ["chhattisgarh", "Chhattisgarh"],
+      ["goa", "Goa"],
+      ["gujarat", "Gujarat"],
+      ["haryana", "Haryana"],
+      ["himachal-pradesh", "Himachal Pradesh"],
+      ["jharkhand", "Jharkhand"],
+      ["karnataka", "Karnataka"],
+      ["kerala", "Kerala"],
+      ["madhya-pradesh", "Madhya Pradesh"],
+      ["maharashtra", "Maharashtra"],
+      ["manipur", "Manipur"],
+      ["meghalaya", "Meghalaya"],
+      ["mizoram", "Mizoram"],
+      ["nagaland", "Nagaland"],
+      ["odisha", "Odisha"],
+      ["punjab", "Punjab"],
+      ["rajasthan", "Rajasthan"],
+      ["sikkim", "Sikkim"],
+      ["tamil-nadu", "Tamil Nadu"],
+      ["telangana", "Telangana"],
+      ["tripura", "Tripura"],
+      ["uttar-pradesh", "Uttar Pradesh"],
+      ["uttarakhand", "Uttarakhand"],
+      ["west-bengal", "West Bengal"],
+      ["andaman-and-nicobar-islands", "Andaman and Nicobar Islands"],
+      ["chandigarh", "Chandigarh"],
+      ["dadra-and-nagar-haveli-and-daman-and-diu", "Dadra and Nagar Haveli and Daman and Diu"],
+      ["delhi", "Delhi (NCT)"],
+      ["jammu-and-kashmir", "Jammu and Kashmir"],
+      ["ladakh", "Ladakh"],
+      ["lakshadweep", "Lakshadweep"],
+      ["puducherry", "Puducherry"],
+    ],
+    hint: "Choose the eligible state, or All India for a national scholarship",
+  },
   age: { label: "Maximum age", weight: 1, inputType: "number", min: "0", placeholder: "e.g. 25" },
 };
 
@@ -315,7 +357,16 @@ function renderList(items) {
     const card = document.createElement("div");
     card.className = "sch-card";
     const chips = (s.rules || [])
-      .map((r) => `<span class="rule-chip">${FIELD_DEFS[r.field] ? FIELD_DEFS[r.field].label : r.field}: ${r.value}</span>`)
+      .map((r) => {
+        const def = FIELD_DEFS[r.field];
+        const fieldLabel = def ? def.label : r.field;
+        let displayValue = r.value;
+        if (def && def.inputType === "select") {
+          const match = def.options.find(([v]) => v === r.value);
+          if (match) displayValue = match[1];
+        }
+        return `<span class="rule-chip">${fieldLabel}: ${displayValue}</span>`;
+      })
       .join("");
     card.innerHTML = `
       <h3>${s.name}</h3>
