@@ -327,10 +327,22 @@ function renderList(items) {
       </div>
       <div class="rule-chips">${chips}</div>
       <button type="button" class="sch-edit-btn">Edit</button>
+      <button type="button" class="sch-delete-btn">Delete</button>
     `;
     card.querySelector(".sch-edit-btn").addEventListener("click", () => enterEditMode(s));
+    card.querySelector(".sch-delete-btn").addEventListener("click", () => deleteScholarship(s.id, s.name));
     listEl.appendChild(card);
   });
+}
+
+async function deleteScholarship(id, name) {
+  if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+  const res = await fetch(`/api/admin/scholarships/${id}`, { method: "DELETE" });
+  if (res.status === 401) {
+    window.location.href = "admin-login.html";
+    return;
+  }
+  if (res.ok) loadScholarships();
 }
 
 loadScholarships();

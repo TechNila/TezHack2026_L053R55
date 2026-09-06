@@ -295,6 +295,21 @@
 
 .sch-edit-btn:hover { background: var(--navy); color: #fff; }
 
+.sch-delete-btn {
+  margin-left: 8px;
+  padding: 7px 14px;
+  border: 1px solid var(--red);
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--red);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sch-delete-btn:hover { background: var(--red); color: #fff; }
+
 .list-empty { font-size: 13px; color: var(--slate); }
 
 @media (max-width: 900px) {

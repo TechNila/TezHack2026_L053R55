@@ -476,6 +476,16 @@ def admin_update_scholarship(scholarship_id):
     return jsonify({"message": "Scholarship updated"})
 
 
+@app.route("/api/admin/scholarships/<int:scholarship_id>", methods=["DELETE"])
+@admin_required
+def admin_delete_scholarship(scholarship_id):
+    conn = get_db()
+    conn.execute("DELETE FROM scholarships WHERE id = ?", (scholarship_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Scholarship deleted"})
+
+
 BASIC_FIELDS = ["name", "institution", "deadline", "description", "notice_link"]
 
 
