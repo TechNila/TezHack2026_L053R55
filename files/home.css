@@ -126,6 +126,7 @@ img, svg { display: block; max-width: 100%; }
 
 .main-nav {
   display: flex;
+  align-items: center;
   gap: 28px;
   font-weight: 500;
   font-size: 0.95rem;
@@ -135,7 +136,16 @@ img, svg { display: block; max-width: 100%; }
 .main-nav a:hover { color: var(--sunbeam); }
 .site-header.is-scrolled .main-nav a:hover { color: var(--bridge); }
 
-.header-cta { padding: 10px 20px; font-size: 0.9rem; }
+#header-cta { 
+  padding: 10px 20px; 
+  background-color: var(--sunbeam);
+  font-size: 0.9rem; 
+  color: var(--ink);
+  transition: .2s linear;
+}
+#header-cta:hover {
+  background-color: var(--sunbeam-dark);
+}
 
 .nav-toggle {
   display: none;
@@ -346,7 +356,12 @@ img, svg { display: block; max-width: 100%; }
 }
 
 @media (max-width: 760px) {
-  .main-nav, .header-cta { display: none; }
+  .main-nav { display: none; }
+  #header-cta, #header-cta:hover {
+    background: none;
+    color: var(--paper); 
+    padding: 12px 0;
+  }
   .nav-toggle { display: flex; }
 
   .site-header.nav-open { background: var(--ink); }
@@ -362,6 +377,7 @@ img, svg { display: block; max-width: 100%; }
     padding: 8px 32px 20px;
   }
   .site-header.nav-open .main-nav a {
+    width: 100%;
     color: var(--paper);
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,252,245,0.1);

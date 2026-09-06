@@ -2,7 +2,7 @@
 ScholarSetu -- Flask + SQLite backend.
 
 Run with:  python app.py
-Then open: http://127.0.0.1:5000/
+Then open: http://127.0.0.1:5000/ or if host='0.0.0.0' open the port from the ip of the host device
 
 Default admin login (preset, not self-serve):
     username: admin
