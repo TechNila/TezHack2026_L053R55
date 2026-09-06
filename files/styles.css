@@ -91,7 +91,7 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
-  padding: 10px 0;
+  padding: 10px;
   isolation: isolate;
 }
 
@@ -102,7 +102,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: calc(var(--top-bar-height, 78px) + 96px);
+  height: calc(var(--top-bar-height, 78px) + 40px);
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
@@ -110,9 +110,9 @@ body {
     to bottom,
     rgba(255, 255, 255, 1) 0,
     rgba(255, 255, 255, 1) var(--top-bar-height, 78px),
-    rgba(255, 255, 255, 0.72) calc(var(--top-bar-height, 78px) + 24px),
-    rgba(255, 255, 255, 0.28) calc(var(--top-bar-height, 78px) + 60px),
-    rgba(255, 255, 255, 0) calc(var(--top-bar-height, 78px) + 96px)
+    rgba(255, 255, 255, 0.72) calc(var(--top-bar-height, 78px) + 20px),
+    rgba(255, 255, 255, 0.28) calc(var(--top-bar-height, 78px) + 30px),
+    rgba(255, 255, 255, 0) calc(var(--top-bar-height, 78px) + 40px)
   );
   transition: opacity 0.18s ease, visibility 0.18s ease;
 }
