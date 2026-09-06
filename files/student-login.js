@@ -83,6 +83,18 @@ signupForm.addEventListener("submit", async function (event) {
   payload.gpa = Number(payload.gpa);
   payload.age = Number(payload.age);
 
+  if (payload.gpa < 0 || payload.gpa > 10) {
+    signupError.textContent = "GPA must be between 0 and 10.";
+    signupError.classList.add("show");
+    return;
+  }
+
+  if (payload.age < 2 || payload.age > 100) {
+    signupError.textContent = "Age must be between 2 and 100.";
+    signupError.classList.add("show");
+    return;
+  }
+
   try {
     const res = await fetch("/api/student/signup", {
       method: "POST",
